@@ -1,0 +1,293 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ===================== ENUMS =====================
+
+enum Role {
+  STUDENT
+  ADMIN
+}
+
+enum DegreeLevel {
+  HIGH_SCHOOL
+  UNDERGRADUATE
+  MASTERS
+  PHD
+  POSTDOC
+  OTHER
+}
+
+enum FundingType {
+  FULLY_FUNDED
+  PARTIALLY_FUNDED
+  UNFUNDED
+  PAID
+  UNPAID
+  NOT_SPECIFIED
+}
+
+enum RemoteStatus {
+  REMOTE
+  HYBRID
+  ON_SITE
+  NOT_SPECIFIED
+}
+
+enum VerificationStatus {
+  VERIFIED
+  NEEDS_REVIEW
+  EXPIRED
+  REPORTED
+}
+
+enum ApplicationStatus {
+  SAVED
+  PREPARING
+  APPLIED
+  INTERVIEW
+  SELECTED
+  REJECTED
+}
+
+enum NotificationType {
+  NEW_MATCH
+  DEADLINE_APPROACHING
+  SAVED_UPDATED
+  APPLICATION_REMINDER
+  DIGEST
+}
+
+// ===================== CORE ENTITIES =====================
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String?
+  name          String?
+  role          Role     @default(STUDENT)
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  profile           StudentProfile?
+  savedOpportunities SavedOpportunity[]
+  applications       Application[]
+  notifications       Notification[]
+  searchPreferences  SearchPreference[]
+  adminReviews        AdminReview[]      @relation("ReviewedBy")
+  opportunityReports  OpportunityReport[]
+}
+
+model StudentProfile {
+  id                  String       @id @default(cuid())
+  userId              String       @unique
+  user                User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  displayName         String?
+  country              String?       // citizenship
+  degreeLevel          DegreeLevel?
+  degreeProgram        String?
+  university            String?
+  academicYear          String?
+  gpa                   Float?
+  graduationYear        Int?
+
+  skills                String[]
+  researchInterests     String[]
+  preferredCountries    String[]
+  fundingPreference     FundingType?
+  remotePreference      RemoteStatus?
+  languageTestStatus    String?
+
+  fieldId               String?
+  field                 Field?       @relation(fields: [fieldId], references: [id])
+  subfieldId            String?
+  subfield              Subfield?    @relation(fields: [subfieldId], references: [id])
+
+  notificationOptIn      Boolean     @default(true)
+
+  createdAt              DateTime    @default(now())
+  updatedAt               DateTime   @updatedAt
+}
+
+model Field {
+  id          String      @id @default(cuid())
+  name        String      @unique
+  subfields   Subfield[]
+  opportunities Opportunity[]
+  profiles    StudentProfile[]
+}
+
+model Subfield {
+  id          String      @id @default(cuid())
+  name        String
+  fieldId     String
+  field       Field       @relation(fields: [fieldId], references: [id], onDelete: Cascade)
+  opportunities Opportunity[]
+  profiles    StudentProfile[]
+
+  @@unique([fieldId, name])
+}
+
+model OpportunityCategory {
+  id          String      @id @default(cuid())
+  name        String      @unique   // Jobs, Internships, Scholarships, Research, Exchange, Competitions, Growth, etc.
+  slug        String      @unique
+  opportunities Opportunity[]
+}
+
+model Provider {
+  id          String      @id @default(cuid())
+  name        String      @unique   // company/university/organization
+  website     String?
+  opportunities Opportunity[]
+}
+
+model OpportunitySource {
+  id             String      @id @default(cuid())
+  name           String
+  url            String
+  type           String?     // university page, gov program, job feed, etc.
+  lastCrawledAt  DateTime?
+  opportunities  Opportunity[]
+
+  createdAt      DateTime    @default(now())
+}
+
+model Opportunity {
+  id                  String              @id @default(cuid())
+  title               String
+  description          String?             @db.Text
+  providerId            String?
+  provider              Provider?           @relation(fields: [providerId], references: [id])
+
+  categoryId             String
+  category               OpportunityCategory @relation(fields: [categoryId], references: [id])
+
+  fieldId                String?
+  field                  Field?              @relation(fields: [fieldId], references: [id])
+  subfieldId             String?
+  subfield               Subfield?           @relation(fields: [subfieldId], references: [id])
+
+  location                String?
+  eligibleCountries       String[]
+  degreeLevels             DegreeLevel[]
+  experienceLevel           String?
+  remoteStatus              RemoteStatus       @default(NOT_SPECIFIED)
+
+  skills                    String[]
+
+  fundingType                FundingType       @default(NOT_SPECIFIED)
+  fundingDetails              String?
+  salary                       String?
+
+  deadline                     DateTime?
+  duration                      String?
+  requirements                   String?          @db.Text
+  documents                       String[]
+
+  applicationUrl                  String
+  sourceId                         String?
+  source                           OpportunitySource? @relation(fields: [sourceId], references: [id])
+  sourceUrl                        String?
+
+  verificationStatus                VerificationStatus @default(NEEDS_REVIEW)
+
+  publishedAt                        DateTime?
+  updatedAt                           DateTime          @updatedAt
+  lastCheckedAt                        DateTime?
+  expiresAt                             DateTime?
+  createdAt                              DateTime         @default(now())
+
+  savedBy                                 SavedOpportunity[]
+  applications                             Application[]
+  reports                                   OpportunityReport[]
+  adminReviews                               AdminReview[]
+
+  @@index([categoryId])
+  @@index([fieldId])
+  @@index([deadline])
+  @@index([verificationStatus])
+}
+
+model SavedOpportunity {
+  id             String      @id @default(cuid())
+  userId         String
+  user           User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  opportunityId  String
+  opportunity    Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  createdAt      DateTime    @default(now())
+
+  @@unique([userId, opportunityId])
+}
+
+model Application {
+  id             String              @id @default(cuid())
+  userId         String
+  user           User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  opportunityId  String
+  opportunity    Opportunity         @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+
+  status         ApplicationStatus   @default(SAVED)
+  notes          String?
+  appliedAt      DateTime?
+  reminderAt     DateTime?
+
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  @@unique([userId, opportunityId])
+}
+
+model Notification {
+  id         String            @id @default(cuid())
+  userId     String
+  user       User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type       NotificationType
+  title      String
+  message    String
+  read       Boolean           @default(false)
+  createdAt  DateTime          @default(now())
+}
+
+model SearchPreference {
+  id         String      @id @default(cuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name       String?     // saved search name
+  query      String?
+  filters    Json?
+  createdAt  DateTime    @default(now())
+}
+
+model AdminReview {
+  id             String       @id @default(cuid())
+  opportunityId  String
+  opportunity    Opportunity  @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  reviewerId     String?
+  reviewer       User?        @relation("ReviewedBy", fields: [reviewerId], references: [id])
+  action         String       // approved, rejected, edited, marked_expired
+  notes          String?
+  createdAt      DateTime     @default(now())
+}
+
+model OpportunityReport {
+  id             String       @id @default(cuid())
+  opportunityId  String
+  opportunity    Opportunity  @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  userId         String?
+  user           User?        @relation(fields: [userId], references: [id])
+  reason         String
+  details        String?
+  resolved       Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+}
