@@ -1,13 +1,67 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F4F5FB;
+  --surface: #FFFFFF;
+  --surface-alt: #F0F2F7;
+  --foreground: #12141C;
+  --muted: #5B6272;
+  --border: #E4E7EE;
+
+  --primary: #4F46E5;
+  --primary-hover: #4338CA;
+  --teal: #0D9488;
+  --teal-light: #CCFBF1;
+  --amber: #D97706;
+  --amber-light: #FEF3C7;
+
+  --cat-jobs: #2563EB;
+  --cat-jobs-bg: #EFF6FF;
+  --cat-internships: #059669;
+  --cat-internships-bg: #ECFDF5;
+  --cat-scholarships: #7C3AED;
+  --cat-scholarships-bg: #F5F3FF;
+
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.8);
+}
+
+.dark {
+  --background: #0B0F1A;
+  --surface: #131826;
+  --surface-alt: #1A2033;
+  --foreground: #F1F3F9;
+  --muted: #8B93A7;
+  --border: #232A3D;
+
+  --primary: #6366F1;
+  --primary-hover: #818CF8;
+  --teal: #2DD4BF;
+  --teal-light: #134E4A;
+  --amber: #FBBF24;
+  --amber-light: #452C0A;
+
+  --cat-jobs: #60A5FA;
+  --cat-jobs-bg: #1E293B;
+  --cat-internships: #34D399;
+  --cat-internships-bg: #1E2E28;
+  --cat-scholarships: #A78BFA;
+  --cat-scholarships-bg: #26213D;
+
+  --glass-bg: rgba(19, 24, 38, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.08);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-teal: var(--teal);
+  --color-amber: var(--amber);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -15,5 +69,41 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.gor-mesh {
+  position: relative;
+  overflow: hidden;
+}
+
+.gor-mesh::before {
+  content: "";
+  position: absolute;
+  inset: -10%;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--primary) 22%, transparent), transparent 55%),
+    radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--teal) 20%, transparent), transparent 55%),
+    radial-gradient(circle at 50% 90%, color-mix(in srgb, var(--amber) 12%, transparent), transparent 50%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.gor-mesh > * {
+  position: relative;
+  z-index: 1;
+}
+
+.gor-glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+::selection {
+  background: var(--primary);
+  color: white;
 }

@@ -17,9 +17,9 @@ export default async function ProfilePage() {
   });
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-10">
-      <h1 className="text-2xl font-semibold text-gray-900">Your Profile</h1>
-      <p className="mt-2 text-gray-600">
+        <div className="mx-auto max-w-2xl px-6 py-10">
+      <h1 className="text-2xl font-semibold" style={{ color: "var(--foreground)" }}>Your Profile</h1>
+      <p className="mt-2" style={{ color: "var(--muted)" }}>
         This information helps us match you with relevant opportunities.
       </p>
 

@@ -1,16 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-
-const COUNTRY_KEYWORDS: Record<string, string[]> = {
-  Germany: ["germany", "deutschland", "berlin", "münchen", "munich", "hamburg", "frankfurt", "cologne", "köln", "stuttgart", "düsseldorf", "dusseldorf", "leipzig", "dresden", "essen", "hannover", "mainz", "bonn", "freiburg", "augsburg", "wildau", "bielefeld", "offenburg", "riedlingen", "kirchberg", "bauerbach", "geiselbach", "zeitz", "morsbach", "vellberg", "breitenbrunn", "niederlangen"],
-  "United Kingdom": ["united kingdom", "uk", "london", "bristol", "england", "paris; prague"],
-  "United States of America": ["united states", "us,", ", us", "county", "new york", "chicago", "texas", "california", "colorado", "orlando", "dallas", "houston", "denver", "austin", "philadelphia", "nashville", "boston"],
-  Turkey: ["turkey", "türkiye"],
-  Canada: ["canada"],
-  Hungary: ["hungary"],
-  Australia: ["australia"],
-  Japan: ["japan"],
-};
+import { COUNTRY_KEYWORDS } from "@/lib/countries";
 
 export async function GET(
   req: Request,
@@ -31,5 +21,14 @@ export async function GET(
     return keywords.some((kw) => lower.includes(kw));
   });
 
-  return NextResponse.json(filtered.slice(0, 30));
+  const breakdown: Record<string, number> = {};
+  for (const opp of filtered) {
+    breakdown[opp.category.name] = (breakdown[opp.category.name] || 0) + 1;
+  }
+
+  return NextResponse.json({
+    opportunities: filtered.slice(0, 30),
+    breakdown,
+    total: filtered.length,
+  });
 }

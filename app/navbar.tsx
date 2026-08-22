@@ -2,61 +2,81 @@
 
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
+import { useTheme } from "./theme-provider";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
+  const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="border-b border-gray-200 bg-white">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-4">
-          <Link href="/" className="text-lg font-semibold text-gray-900">
-            GOR
+    <div className="sticky top-3 z-50 px-4">
+      <header
+        className="gor-glass mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-5 py-3 shadow-sm"
+      >
+        <div className="flex items-center gap-6">
+          <Link href="/" className="flex items-center gap-2">
+            <span
+              className="flex h-8 w-8 items-center justify-center rounded-xl text-sm font-bold text-white"
+              style={{ background: "linear-gradient(135deg, var(--primary), var(--teal))" }}
+            >
+              G
+            </span>
+            <span className="text-lg font-bold tracking-tight" style={{ color: "var(--foreground)" }}>
+              GOR
+            </span>
           </Link>
-          <Link href="/map" className="text-sm text-gray-600 hover:text-gray-900">
-            Map
+          <Link href="/map" className="hidden text-sm font-medium sm:block" style={{ color: "var(--muted)" }}>
+            Explore Map
           </Link>
         </div>
 
-        <nav className="flex items-center gap-4 text-sm">
+        <nav className="flex items-center gap-3 text-sm">
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="flex h-8 w-8 items-center justify-center rounded-full border transition"
+            style={{ borderColor: "var(--border)", color: "var(--foreground)" }}
+          >
+            {theme === "light" ? "🌙" : "☀️"}
+          </button>
+
           {status === "loading" ? null : session?.user ? (
             <>
-              <Link href="/dashboard" className="text-gray-700 hover:text-gray-900">
+              <Link href="/dashboard" className="hidden font-medium sm:block" style={{ color: "var(--muted)" }}>
                 Dashboard
               </Link>
               {(session.user as any).role === "ADMIN" && (
-                <Link href="/admin" className="text-red-600 hover:text-red-800">
+                <Link href="/admin" className="hidden font-medium sm:block" style={{ color: "var(--amber)" }}>
                   Admin
                 </Link>
               )}
-              <Link href="/profile" className="text-gray-700 hover:text-gray-900">
+              <Link href="/profile" className="hidden font-medium sm:block" style={{ color: "var(--muted)" }}>
                 Profile
               </Link>
-              <span className="text-gray-500">
-                Hi, {session.user.name?.split(" ")[0] || session.user.email}
-              </span>
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
-                className="rounded-md bg-gray-900 px-3 py-1.5 text-white hover:bg-gray-800"
+                className="rounded-full px-4 py-1.5 text-sm font-semibold text-white transition hover:opacity-90"
+                style={{ background: "var(--primary)" }}
               >
                 Log Out
               </button>
             </>
           ) : (
             <>
-              <Link href="/login" className="text-gray-700 hover:text-gray-900">
+              <Link href="/login" className="font-medium" style={{ color: "var(--muted)" }}>
                 Log In
               </Link>
               <Link
                 href="/signup"
-                className="rounded-md bg-gray-900 px-3 py-1.5 text-white hover:bg-gray-800"
+                className="rounded-full px-4 py-1.5 text-sm font-semibold text-white transition hover:opacity-90"
+                style={{ background: "var(--primary)" }}
               >
                 Sign Up
               </Link>
             </>
           )}
         </nav>
-      </div>
-    </header>
+      </header>
+    </div>
   );
 }

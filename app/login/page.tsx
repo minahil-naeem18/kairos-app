@@ -34,21 +34,27 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
+    <div
+      className="flex min-h-[calc(100vh-64px)] items-center justify-center px-6"
+      style={{ background: "var(--background)" }}
+    >
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm space-y-4 rounded-xl border border-gray-200 bg-white p-8 shadow-sm"
+        className="w-full max-w-sm space-y-4 rounded-2xl border p-8 shadow-sm"
+        style={{ background: "var(--surface)", borderColor: "var(--border)" }}
       >
-        <h1 className="text-2xl font-semibold text-gray-900">Log in</h1>
+        <h1 className="text-2xl font-semibold" style={{ color: "var(--foreground)" }}>
+          Log in
+        </h1>
 
         {error && (
-          <p className="rounded-md bg-red-50 p-2 text-sm text-red-600">
+          <p className="rounded-md p-2 text-sm" style={{ background: "var(--amber-light)", color: "var(--amber)" }}>
             {error}
           </p>
         )}
 
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700">
+          <label className="mb-1 block text-sm font-medium" style={{ color: "var(--muted)" }}>
             Email
           </label>
           <input
@@ -56,12 +62,17 @@ export default function LoginPage() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder-gray-400"
+            className="w-full rounded-lg border px-3 py-2 text-sm outline-none"
+            style={{
+              background: "var(--surface-alt)",
+              borderColor: "var(--border)",
+              color: "var(--foreground)",
+            }}
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700">
+          <label className="mb-1 block text-sm font-medium" style={{ color: "var(--muted)" }}>
             Password
           </label>
           <input
@@ -69,21 +80,27 @@ export default function LoginPage() {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder-gray-400"
+            className="w-full rounded-lg border px-3 py-2 text-sm outline-none"
+            style={{
+              background: "var(--surface-alt)",
+              borderColor: "var(--border)",
+              color: "var(--foreground)",
+            }}
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-md bg-black py-2 text-sm font-medium text-white disabled:opacity-50"
+          className="w-full rounded-lg py-2 text-sm font-medium text-white disabled:opacity-50"
+          style={{ background: "var(--primary)" }}
         >
           {loading ? "Logging in..." : "Log In"}
         </button>
 
-        <p className="text-center text-sm text-gray-500">
+        <p className="text-center text-sm" style={{ color: "var(--muted)" }}>
           Don't have an account?{" "}
-          <a href="/signup" className="font-medium text-black underline">
+          <a href="/signup" className="font-medium underline" style={{ color: "var(--primary)" }}>
             Sign up
           </a>
         </p>
