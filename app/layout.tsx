@@ -27,14 +27,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Kairos — Discover Scholarships, Jobs & Internships",
     description: "Discover. Apply. Grow. Scholarships, jobs, and internships from around the world — matched to you.",
-    images: ["/og-image.png"],
+    images: ["/logo/og-image.png"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Kairos — Discover Scholarships, Jobs & Internships",
     description: "Discover. Apply. Grow. Scholarships, jobs, and internships from around the world — matched to you.",
-    images: ["/og-image.png"],
+    images: ["/logo/og-image.png"],
   },
 };
 
