@@ -21,6 +21,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+     metadataBase: new URL("https://the-kairos.vercel.app"),
   title: "Kairos — Discover Scholarships, Jobs & Internships",
   description: "Discover. Apply. Grow. Scholarships, jobs, and internships from around the world — matched to you.",
   openGraph: {
