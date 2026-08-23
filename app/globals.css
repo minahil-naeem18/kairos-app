@@ -1,54 +1,54 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F4F5FB;
+  --background: #F6F7FA;
   --surface: #FFFFFF;
-  --surface-alt: #F0F2F7;
-  --foreground: #12141C;
-  --muted: #5B6272;
-  --border: #E4E7EE;
+  --surface-alt: #EFF2F7;
+  --foreground: #0F1E38;
+  --muted: #5B6478;
+  --border: #E3E7EF;
 
-  --primary: #4F46E5;
-  --primary-hover: #4338CA;
-  --teal: #0D9488;
-  --teal-light: #CCFBF1;
-  --amber: #D97706;
-  --amber-light: #FEF3C7;
+  --primary: #12294F;
+  --primary-hover: #0B1F3D;
+  --teal: #1E6B7A;
+  --teal-light: #DFF1F3;
+  --amber: #D98E0F;
+  --amber-light: #FDF1DC;
 
   --cat-jobs: #2563EB;
   --cat-jobs-bg: #EFF6FF;
-  --cat-internships: #059669;
-  --cat-internships-bg: #ECFDF5;
+  --cat-internships: #1E6B7A;
+  --cat-internships-bg: #DFF1F3;
   --cat-scholarships: #7C3AED;
   --cat-scholarships-bg: #F5F3FF;
 
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.85);
 }
 
 .dark {
-  --background: #0B0F1A;
-  --surface: #131826;
-  --surface-alt: #1A2033;
-  --foreground: #F1F3F9;
+  --background: #0A1220;
+  --surface: #10192C;
+  --surface-alt: #16223A;
+  --foreground: #F1F4F9;
   --muted: #8B93A7;
-  --border: #232A3D;
+  --border: #22304A;
 
-  --primary: #6366F1;
-  --primary-hover: #818CF8;
-  --teal: #2DD4BF;
-  --teal-light: #134E4A;
-  --amber: #FBBF24;
-  --amber-light: #452C0A;
+  --primary: #3E6FB0;
+  --primary-hover: #5D8CCB;
+  --teal: #35A6B8;
+  --teal-light: #103A40;
+  --amber: #F2A93B;
+  --amber-light: #3D2A0A;
 
   --cat-jobs: #60A5FA;
   --cat-jobs-bg: #1E293B;
-  --cat-internships: #34D399;
-  --cat-internships-bg: #1E2E28;
+  --cat-internships: #35A6B8;
+  --cat-internships-bg: #12333A;
   --cat-scholarships: #A78BFA;
   --cat-scholarships-bg: #26213D;
 
-  --glass-bg: rgba(19, 24, 38, 0.55);
+  --glass-bg: rgba(16, 25, 44, 0.55);
   --glass-border: rgba(255, 255, 255, 0.08);
 }
 
@@ -67,10 +67,65 @@
 }
 
 body {
+  position: relative;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   transition: background 0.2s ease, color 0.2s ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    radial-gradient(circle, color-mix(in srgb, var(--primary) 45%, transparent) 1.5px, transparent 1.5px),
+    radial-gradient(circle, color-mix(in srgb, var(--amber) 45%, transparent) 1.5px, transparent 1.5px),
+    radial-gradient(circle, color-mix(in srgb, var(--primary) 30%, transparent) 1px, transparent 1px);
+  background-size: 140px 140px, 190px 190px, 90px 90px;
+  background-position: 0 0, 45px 80px, 20px 130px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: -10%;
+  right: -8%;
+  width: 560px;
+  height: 560px;
+  z-index: -1;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle,
+    transparent 0px,
+    transparent 44px,
+    color-mix(in srgb, var(--primary) 12%, transparent) 45px,
+    transparent 46px,
+    transparent 90px,
+    color-mix(in srgb, var(--amber) 10%, transparent) 91px,
+    transparent 92px
+  );
+  pointer-events: none;
+}
+
+.dark body::before {
+  opacity: 0.35;
+}
+
+.dark body::after {
+  background: repeating-radial-gradient(
+    circle,
+    transparent 0px,
+    transparent 44px,
+    color-mix(in srgb, var(--teal) 16%, transparent) 45px,
+    transparent 46px,
+    transparent 90px,
+    color-mix(in srgb, var(--amber) 14%, transparent) 91px,
+    transparent 92px
+  );
 }
 
 .gor-mesh {
@@ -84,9 +139,9 @@ body {
   inset: -10%;
   z-index: 0;
   background:
-    radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--primary) 22%, transparent), transparent 55%),
-    radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--teal) 20%, transparent), transparent 55%),
-    radial-gradient(circle at 50% 90%, color-mix(in srgb, var(--amber) 12%, transparent), transparent 50%);
+    radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--primary) 18%, transparent), transparent 55%),
+    radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--teal) 16%, transparent), transparent 55%),
+    radial-gradient(circle at 50% 90%, color-mix(in srgb, var(--amber) 14%, transparent), transparent 50%);
   filter: blur(40px);
   pointer-events: none;
 }

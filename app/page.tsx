@@ -150,16 +150,45 @@ export default async function Home({
   return (
     <div>
       {/* HERO */}
-      <div className="gor-mesh px-6 py-20">
-        <div className="mx-auto max-w-4xl text-center">
-          <span
-            className="gor-glass mb-4 inline-block rounded-full px-4 py-1.5 text-xs font-semibold"
-            style={{ color: "var(--primary)" }}
+      <section className="relative px-6 py-14 sm:py-16">
+        <div className="relative mx-auto max-w-5xl text-center">
+          <div className="mb-5 flex items-center justify-center gap-4">
+            <span className="h-px w-10" style={{ background: "var(--amber)" }} />
+            <p
+              className="text-6xl sm:text-7xl"
+              style={{
+                fontFamily: "var(--font-cormorant), Georgia, serif",
+                fontWeight: 700,
+                letterSpacing: "0.01em",
+                background: "linear-gradient(120deg, var(--primary) 0%, var(--primary) 55%, var(--amber) 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Kairos
+            </p>
+            <span className="h-px w-10" style={{ background: "var(--amber)" }} />
+          </div>
+
+          <div className="mb-6 flex justify-center">
+            <span
+              className="gor-glass inline-flex items-center gap-2 rounded-full border px-5 py-2 text-xs font-semibold shadow-sm"
+              style={{ color: "var(--primary)", borderColor: "color-mix(in srgb, var(--primary) 25%, transparent)" }}
+            >
+              <span className="text-sm">🌍</span>
+              {totalOpportunities.toLocaleString()}+ opportunities
+              <span className="h-1 w-1 rounded-full" style={{ background: "var(--muted)" }} />
+              {Object.keys(countryCounts).length}+ countries
+            </span>
+          </div>
+
+          <h1
+            className="mx-auto max-w-4xl text-5xl font-extrabold tracking-[-0.04em] sm:text-6xl lg:text-7xl"
+            style={{ color: "var(--foreground)", lineHeight: 1.04 }}
           >
-            🌍 {totalOpportunities.toLocaleString()}+ opportunities · {Object.keys(countryCounts).length}+ countries
-          </span>
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl" style={{ color: "var(--foreground)" }}>
-            Find your next{" "}
+            Find your next
+            <br />
             <span
               style={{
                 background: "linear-gradient(135deg, var(--primary), var(--teal))",
@@ -171,259 +200,319 @@ export default async function Home({
               global opportunity
             </span>
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-base" style={{ color: "var(--muted)" }}>
+
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-7 sm:text-lg" style={{ color: "var(--muted)" }}>
             Scholarships, internships, and jobs from around the world — matched to your field, funding needs, and goals.
           </p>
 
-          <form method="GET" className="mx-auto mt-8 flex max-w-xl gap-2">
-            <input
-              type="text"
-              name="q"
-              defaultValue={q}
-              placeholder="Search by title, field, or keyword..."
-              className="gor-glass flex-1 rounded-full px-5 py-3 text-sm outline-none"
-              style={{ color: "var(--foreground)" }}
-            />
+          <form method="GET" className="mx-auto mt-9 flex max-w-2xl flex-col gap-3 sm:flex-row">
+            <div
+              className="gor-glass group flex min-h-[54px] flex-1 items-center gap-3 rounded-full border px-5 transition-all focus-within:shadow-lg"
+              style={{ borderColor: "var(--border)" }}
+            >
+              <span className="text-base" style={{ color: "var(--muted)" }}>🔍</span>
+              <input
+                type="text"
+                name="q"
+                defaultValue={q}
+                placeholder="Search opportunities, fields, keywords..."
+                className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:opacity-60"
+                style={{ color: "var(--foreground)" }}
+              />
+            </div>
             {category && <input type="hidden" name="category" value={category} />}
             <button
               type="submit"
-              className="rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:opacity-90"
-              style={{ background: "var(--primary)" }}
+              className="min-h-[54px] rounded-full px-8 text-sm font-bold text-white shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg"
+              style={{ background: "linear-gradient(135deg, var(--primary), var(--teal))" }}
             >
               Search
             </button>
           </form>
 
-          <Link href="/map" className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium" style={{ color: "var(--teal)" }}>
-            🧭 Explore the Opportunity Radar map →
-          </Link>
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-6xl px-6 py-10">
-        {/* CATEGORY TILES */}
-        <div className="mb-10 grid grid-cols-1 gap-3 sm:grid-cols-4">
           <Link
-            href="/"
-            className="rounded-xl border p-4 text-sm font-semibold transition hover:shadow-sm"
+            href="/map"
+            className="group mt-7 inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold transition-all hover:-translate-y-0.5 hover:shadow-md"
             style={{
-              borderColor: !category ? "var(--primary)" : "var(--border)",
-              background: !category ? "var(--surface-alt)" : "var(--surface)",
-              color: "var(--foreground)",
+              borderColor: "color-mix(in srgb, var(--teal) 50%, var(--border))",
+              color: "var(--teal)",
+              background: "color-mix(in srgb, var(--surface) 70%, transparent)",
             }}
           >
-            All Opportunities
+            <span>🧭</span>
+            Explore the Opportunity Radar
+            <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
           </Link>
-          {categories.map((cat) => {
-            const style = catStyle(cat.name);
-            return (
+        </div>
+      </section>
+
+      {!userId ? (
+        <div className="mx-auto max-w-2xl px-6 py-16 text-center">
+          <h2 className="text-2xl font-bold" style={{ color: "var(--foreground)" }}>
+            Sign up to explore {totalOpportunities.toLocaleString()}+ opportunities
+          </h2>
+          <p className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
+            Create a free account to see personalized recommendations, closing deadlines, trending opportunities, and browse the full catalog.
+          </p>
+          <div className="mt-6 flex justify-center gap-3">
+            <Link
+              href="/signup"
+              className="rounded-full px-6 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+              style={{ background: "var(--primary)" }}
+            >
+              Sign Up Free
+            </Link>
+            <Link
+              href="/login"
+              className="rounded-full border px-6 py-2.5 text-sm font-semibold transition"
+              style={{ borderColor: "var(--border)", color: "var(--foreground)" }}
+            >
+              Log In
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <div className="mx-auto max-w-6xl px-6 py-12">
+          {/* CATEGORY TABS */}
+          <div className="mb-12 flex justify-center">
+            <div
+              className="gor-glass inline-flex max-w-full flex-wrap justify-center gap-1 rounded-full border p-1.5 shadow-sm"
+              style={{ borderColor: "var(--border)" }}
+            >
               <Link
-                key={cat.id}
-                href={`/?category=${cat.slug}`}
-                className="rounded-xl border p-4 text-sm font-semibold transition hover:shadow-sm"
+                href="/"
+                className="rounded-full px-5 py-2.5 text-sm font-semibold transition-all"
                 style={{
-                  borderColor: category === cat.slug ? style.color : "var(--border)",
-                  background: category === cat.slug ? style.bg : "var(--surface)",
-                  color: category === cat.slug ? style.color : "var(--foreground)",
+                  background: !category ? "var(--primary)" : "transparent",
+                  color: !category ? "#FFFFFF" : "var(--muted)",
+                  boxShadow: !category ? "0 4px 14px color-mix(in srgb, var(--primary) 25%, transparent)" : "none",
                 }}
               >
-                {cat.name}
+                All Opportunities
               </Link>
-            );
-          })}
-        </div>
-
-        {/* EXPLORE BY COUNTRY */}
-        {topCountries.length > 0 && (
-          <div className="mb-12">
-            <h2 className="mb-4 text-lg font-semibold" style={{ color: "var(--foreground)" }}>Explore by Country</h2>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {topCountries.map(([country, count]) => (
-                <Link
-                  key={country}
-                  href={`/map?country=${encodeURIComponent(country)}`}
-                  className="rounded-xl border p-4 transition hover:shadow-sm"
-                  style={{ borderColor: "var(--border)", background: "var(--surface)" }}
-                >
-                  <p className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>{country}</p>
-                  <p className="text-xs" style={{ color: "var(--muted)" }}>{count} opportunities</p>
-                </Link>
-              ))}
+              {categories.map((cat) => {
+                const style = catStyle(cat.name);
+                const active = category === cat.slug;
+                return (
+                  <Link
+                    key={cat.id}
+                    href={`/?category=${cat.slug}`}
+                    className="rounded-full px-5 py-2.5 text-sm font-semibold transition-all"
+                    style={{
+                      background: active ? style.color : "transparent",
+                      color: active ? "#FFFFFF" : "var(--muted)",
+                      boxShadow: active ? `0 4px 14px color-mix(in srgb, ${style.color} 25%, transparent)` : "none",
+                    }}
+                  >
+                    {cat.name}
+                  </Link>
+                );
+              })}
             </div>
           </div>
-        )}
 
-        {/* CLOSING SOON */}
-        {closingSoon.length > 0 && (
-          <div className="mb-12">
-            <div className="mb-3 flex items-center gap-2">
-              <span className="h-2 w-2 animate-pulse rounded-full" style={{ background: "var(--amber)" }} />
-              <h2 className="text-lg font-semibold" style={{ color: "var(--foreground)" }}>Closing Soon</h2>
-            </div>
-            <div className="flex gap-3 overflow-x-auto pb-2">
-              {closingSoon.map((opp) => (
-                <div
-                  key={opp.id}
-                  className="min-w-[240px] flex-shrink-0 rounded-xl border p-4"
-                  style={{ borderColor: "var(--amber)", background: "var(--amber-light)" }}
-                >
-                  <span className="text-xs font-medium" style={{ color: "var(--amber)" }}>{opp.category.name}</span>
-                  <h3 className="mt-1 text-sm font-semibold line-clamp-2" style={{ color: "var(--foreground)" }}>{opp.title}</h3>
-                  <p className="mt-2 text-xs font-medium" style={{ color: "var(--amber)" }}>
-                    Deadline: {new Date(opp.deadline!).toLocaleDateString()}
+          {/* EXPLORE BY COUNTRY */}
+          {topCountries.length > 0 && (
+            <div className="mb-14">
+              <div className="mb-5 flex items-end justify-between">
+                <div>
+                  <p className="mb-1 text-xs font-semibold uppercase tracking-[0.16em]" style={{ color: "var(--primary)" }}>
+                    Global reach
                   </p>
+                  <h2 className="text-2xl font-bold tracking-tight" style={{ color: "var(--foreground)" }}>
+                    Explore by Country
+                  </h2>
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
+                <Link href="/map" className="hidden text-sm font-medium transition hover:opacity-70 sm:block" style={{ color: "var(--teal)" }}>
+                  View map →
+                </Link>
+              </div>
 
-        {/* RECOMMENDED */}
-        {recommendations.length > 0 && (
-          <div className="mb-12">
-            <h2 className="mb-4 text-lg font-semibold" style={{ color: "var(--foreground)" }}>✨ Recommended for You</h2>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {recommendations.map((opp) => (
-                <div
-                  key={opp.id}
-                  className="flex gap-4 rounded-xl border p-5"
-                  style={{ borderColor: "var(--border)", background: "var(--surface)" }}
-                >
-                  <MatchRing score={opp.matchScore} />
-                  <div className="min-w-0 flex-1">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {topCountries.map(([country, count]) => (
+                  <Link
+                    key={country}
+                    href={`/map?country=${encodeURIComponent(country)}`}
+                    className="group relative overflow-hidden rounded-2xl border p-5 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+                    style={{ borderColor: "var(--border)", background: "var(--surface)" }}
+                  >
+                    <div
+                      className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                      style={{ background: "linear-gradient(135deg, color-mix(in srgb, var(--primary) 10%, transparent), transparent 65%)" }}
+                    />
+                    <div className="relative">
+                      <div
+                        className="mb-4 flex h-9 w-9 items-center justify-center rounded-xl text-sm transition-transform duration-200 group-hover:scale-110"
+                        style={{ background: "var(--surface-alt)", color: "var(--primary)" }}
+                      >
+                        🌐
+                      </div>
+                      <p className="text-sm font-bold" style={{ color: "var(--foreground)" }}>{country}</p>
+                      <p className="mt-1 text-xs" style={{ color: "var(--muted)" }}>{count} opportunities</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* CLOSING SOON */}
+          {closingSoon.length > 0 && (
+            <div className="mb-12">
+              <div className="mb-3 flex items-center gap-2">
+                <span className="h-2 w-2 animate-pulse rounded-full" style={{ background: "var(--amber)" }} />
+                <h2 className="text-lg font-semibold" style={{ color: "var(--foreground)" }}>Closing Soon</h2>
+              </div>
+              <div className="flex gap-3 overflow-x-auto pb-2">
+                {closingSoon.map((opp) => (
+                  <div
+                    key={opp.id}
+                    className="min-w-[240px] flex-shrink-0 rounded-xl border p-4"
+                    style={{ borderColor: "var(--amber)", background: "var(--amber-light)" }}
+                  >
+                    <span className="text-xs font-medium" style={{ color: "var(--amber)" }}>{opp.category.name}</span>
+                    <h3 className="mt-1 line-clamp-2 text-sm font-semibold" style={{ color: "var(--foreground)" }}>{opp.title}</h3>
+                    <p className="mt-2 text-xs font-medium" style={{ color: "var(--amber)" }}>
+                      Deadline: {new Date(opp.deadline!).toLocaleDateString()}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* RECOMMENDED */}
+          {recommendations.length > 0 && (
+            <div className="mb-12">
+              <h2 className="mb-4 text-lg font-semibold" style={{ color: "var(--foreground)" }}>✨ Recommended for You</h2>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {recommendations.map((opp) => (
+                  <div key={opp.id} className="flex gap-4 rounded-xl border p-5" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+                    <MatchRing score={opp.matchScore} />
+                    <div className="min-w-0 flex-1">
+                      <span
+                        className="inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                        style={{ background: catStyle(opp.category.name).bg, color: catStyle(opp.category.name).color }}
+                      >
+                        {opp.category.name}
+                      </span>
+                      <h3 className="mt-1 line-clamp-2 text-sm font-semibold" style={{ color: "var(--foreground)" }}>{opp.title}</h3>
+                      {opp.matchReasons.length > 0 && (
+                        <div className="mt-2 flex flex-wrap gap-1">
+                          {opp.matchReasons.slice(0, 3).map((reason: string, i: number) => (
+                            <span key={i} className="rounded-full px-2 py-0.5 text-[10px] font-medium" style={{ background: "var(--surface-alt)", color: "var(--muted)" }}>
+                              {reason}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TRENDING GLOBALLY */}
+          {trending.length > 0 && (
+            <div className="mb-12">
+              <h2 className="mb-4 text-lg font-semibold" style={{ color: "var(--foreground)" }}>🔥 Trending Globally</h2>
+              <div className="flex gap-3 overflow-x-auto pb-2">
+                {trending.map((opp) => (
+                  <div key={opp.id} className="min-w-[240px] flex-shrink-0 rounded-xl border p-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
                     <span
                       className="inline-block rounded-full px-2 py-0.5 text-xs font-medium"
                       style={{ background: catStyle(opp.category.name).bg, color: catStyle(opp.category.name).color }}
                     >
                       {opp.category.name}
                     </span>
-                    <h3 className="mt-1 text-sm font-semibold line-clamp-2" style={{ color: "var(--foreground)" }}>{opp.title}</h3>
-                    {opp.matchReasons.length > 0 && (
-                      <div className="mt-2 flex flex-wrap gap-1">
-                        {opp.matchReasons.slice(0, 3).map((reason: string, i: number) => (
-                          <span
-                            key={i}
-                            className="rounded-full px-2 py-0.5 text-[10px] font-medium"
-                            style={{ background: "var(--surface-alt)", color: "var(--muted)" }}
-                          >
-                            {reason}
-                          </span>
-                        ))}
-                      </div>
-                    )}
+                    <h3 className="mt-1 line-clamp-2 text-sm font-semibold" style={{ color: "var(--foreground)" }}>{opp.title}</h3>
+                    <p className="mt-2 text-xs" style={{ color: "var(--muted)" }}>🔥 Saved {opp.saveCount}x by students</p>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* TRENDING GLOBALLY */}
-        {trending.length > 0 && (
-          <div className="mb-12">
-            <h2 className="mb-4 text-lg font-semibold" style={{ color: "var(--foreground)" }}>🔥 Trending Globally</h2>
-            <div className="flex gap-3 overflow-x-auto pb-2">
-              {trending.map((opp) => (
-                <div
-                  key={opp.id}
-                  className="min-w-[240px] flex-shrink-0 rounded-xl border p-4"
-                  style={{ borderColor: "var(--border)", background: "var(--surface)" }}
-                >
-                  <span
-                    className="inline-block rounded-full px-2 py-0.5 text-xs font-medium"
-                    style={{ background: catStyle(opp.category.name).bg, color: catStyle(opp.category.name).color }}
-                  >
-                    {opp.category.name}
-                  </span>
-                  <h3 className="mt-1 text-sm font-semibold line-clamp-2" style={{ color: "var(--foreground)" }}>{opp.title}</h3>
-                  <p className="mt-2 text-xs" style={{ color: "var(--muted)" }}>🔥 Saved {opp.saveCount}x by students</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* RECENTLY ADDED */}
-        {recentlyAdded.length > 0 && (
-          <div className="mb-12">
-            <h2 className="mb-4 text-lg font-semibold" style={{ color: "var(--foreground)" }}>🆕 Recently Added</h2>
-            <div className="flex gap-3 overflow-x-auto pb-2">
-              {recentlyAdded.map((opp) => (
-                <div
-                  key={opp.id}
-                  className="min-w-[240px] flex-shrink-0 rounded-xl border p-4"
-                  style={{ borderColor: "var(--border)", background: "var(--surface)" }}
-                >
-                  <span
-                    className="inline-block rounded-full px-2 py-0.5 text-xs font-medium"
-                    style={{ background: catStyle(opp.category.name).bg, color: catStyle(opp.category.name).color }}
-                  >
-                    {opp.category.name}
-                  </span>
-                  <h3 className="mt-1 text-sm font-semibold line-clamp-2" style={{ color: "var(--foreground)" }}>{opp.title}</h3>
-                  <p className="mt-2 text-xs" style={{ color: "var(--muted)" }}>{timeAgo(opp.createdAt)}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* MAIN GRID */}
-        <p className="mb-4 text-sm" style={{ color: "var(--muted)" }}>{totalCount} opportunities found</p>
-
-        {opportunities.length === 0 ? (
-          <p style={{ color: "var(--muted)" }}>No opportunities found.</p>
-        ) : (
-          <>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {opportunities.map((opp) => {
-                const style = catStyle(opp.category.name);
-                return (
-                  <div
-                    key={opp.id}
-                    className="flex flex-col rounded-xl border-l-4 border-y border-r p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-                    style={{ borderColor: "var(--border)", borderLeftColor: style.color, background: "var(--surface)" }}
-                  >
-                    <div className="mb-2 flex items-center justify-between">
-                      <span className="inline-block rounded-full px-2.5 py-0.5 text-xs font-medium" style={{ background: style.bg, color: style.color }}>
-                        {opp.category.name}
-                      </span>
-                      <SaveButton opportunityId={opp.id} initialSaved={savedIds.includes(opp.id)} isLoggedIn={!!userId} />
-                    </div>
-
-                    <Link href={`/opportunity/${opp.id}`}>
-                      <h2 className="text-lg font-semibold transition hover:opacity-70" style={{ color: "var(--foreground)" }}>{opp.title}</h2>
-                    </Link>
-                    {opp.provider && <p className="text-sm" style={{ color: "var(--muted)" }}>{opp.provider.name}</p>}
-                    <p className="mt-2 line-clamp-3 text-sm" style={{ color: "var(--muted)" }}>{opp.description}</p>
-
-                    <div className="mt-3 flex flex-wrap gap-2 text-xs" style={{ color: "var(--muted)" }}>
-                      {opp.location && <span>📍 {opp.location}</span>}
-                      {opp.fundingType !== "NOT_SPECIFIED" && <span>💰 {opp.fundingType.replace(/_/g, " ")}</span>}
-                      {opp.deadline && <span>⏰ {new Date(opp.deadline).toLocaleDateString()}</span>}
-                    </div>
-
-                    <ApplyButton opportunityId={opp.id} applicationUrl={opp.applicationUrl} isLoggedIn={!!userId} />
-                    <ReportButton opportunityId={opp.id} />
-                  </div>
-                );
-              })}
-            </div>
-
-            {currentPage < totalPages && (
-              <div className="mt-10 flex justify-center">
-                <Link
-                  href={buildPageLink(currentPage + 1)}
-                  className="rounded-full border px-8 py-2.5 text-sm font-medium transition hover:shadow-sm"
-                  style={{ borderColor: "var(--border)", color: "var(--foreground)", background: "var(--surface)" }}
-                >
-                  Load More
-                </Link>
+                ))}
               </div>
-            )}
-          </>
-        )}
-      </div>
+            </div>
+          )}
+
+          {/* RECENTLY ADDED */}
+          {recentlyAdded.length > 0 && (
+            <div className="mb-12">
+              <h2 className="mb-4 text-lg font-semibold" style={{ color: "var(--foreground)" }}>🆕 Recently Added</h2>
+              <div className="flex gap-3 overflow-x-auto pb-2">
+                {recentlyAdded.map((opp) => (
+                  <div key={opp.id} className="min-w-[240px] flex-shrink-0 rounded-xl border p-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+                    <span
+                      className="inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                      style={{ background: catStyle(opp.category.name).bg, color: catStyle(opp.category.name).color }}
+                    >
+                      {opp.category.name}
+                    </span>
+                    <h3 className="mt-1 line-clamp-2 text-sm font-semibold" style={{ color: "var(--foreground)" }}>{opp.title}</h3>
+                    <p className="mt-2 text-xs" style={{ color: "var(--muted)" }}>{timeAgo(opp.createdAt)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* MAIN GRID */}
+          <p className="mb-4 text-sm" style={{ color: "var(--muted)" }}>{totalCount} opportunities found</p>
+
+          {opportunities.length === 0 ? (
+            <p style={{ color: "var(--muted)" }}>No opportunities found.</p>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {opportunities.map((opp) => {
+                  const style = catStyle(opp.category.name);
+                  return (
+                    <div
+                      key={opp.id}
+                      className="flex flex-col rounded-xl border-l-4 border-y border-r p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                      style={{ borderColor: "var(--border)", borderLeftColor: style.color, background: "var(--surface)" }}
+                    >
+                      <div className="mb-2 flex items-center justify-between">
+                        <span className="inline-block rounded-full px-2.5 py-0.5 text-xs font-medium" style={{ background: style.bg, color: style.color }}>
+                          {opp.category.name}
+                        </span>
+                        <SaveButton opportunityId={opp.id} initialSaved={savedIds.includes(opp.id)} isLoggedIn={!!userId} />
+                      </div>
+
+                      <Link href={`/opportunity/${opp.id}`}>
+                        <h2 className="text-lg font-semibold transition hover:opacity-70" style={{ color: "var(--foreground)" }}>{opp.title}</h2>
+                      </Link>
+
+                      {opp.provider && <p className="text-sm" style={{ color: "var(--muted)" }}>{opp.provider.name}</p>}
+                      <p className="mt-2 line-clamp-3 text-sm" style={{ color: "var(--muted)" }}>{opp.description}</p>
+
+                      <div className="mt-3 flex flex-wrap gap-2 text-xs" style={{ color: "var(--muted)" }}>
+                        {opp.location && <span>📍 {opp.location}</span>}
+                        {opp.fundingType !== "NOT_SPECIFIED" && <span>💰 {opp.fundingType.replace(/_/g, " ")}</span>}
+                        {opp.deadline && <span>⏰ {new Date(opp.deadline).toLocaleDateString()}</span>}
+                      </div>
+
+                      <ApplyButton opportunityId={opp.id} applicationUrl={opp.applicationUrl} isLoggedIn={!!userId} />
+                      <ReportButton opportunityId={opp.id} />
+                    </div>
+                  );
+                })}
+              </div>
+
+              {currentPage < totalPages && (
+                <div className="mt-10 flex justify-center">
+                  <Link
+                    href={buildPageLink(currentPage + 1)}
+                    className="rounded-full border px-8 py-2.5 text-sm font-medium transition hover:shadow-sm"
+                    style={{ borderColor: "var(--border)", color: "var(--foreground)", background: "var(--surface)" }}
+                  >
+                    Load More
+                  </Link>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 }

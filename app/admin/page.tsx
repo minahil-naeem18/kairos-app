@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import ResolveReportButton from "./resolve-report-button";
 import DeleteOpportunityButton from "./delete-opportunity-button";
 import AddOpportunityForm from "./add-opportunity-form";
-
+import RoleToggleButton from "./role-toggle-button";
 export default async function AdminPage() {
   const session = await auth();
   if (!session?.user || (session.user as any).role !== "ADMIN") redirect("/");
@@ -135,7 +135,8 @@ export default async function AdminPage() {
                 <th className="px-4 py-2 font-medium">Name</th>
                 <th className="px-4 py-2 font-medium">Email</th>
                 <th className="px-4 py-2 font-medium">Role</th>
-                <th className="px-4 py-2 font-medium">Joined</th>
+                            <th className="px-4 py-2 font-medium">Joined</th>
+              <th className="px-4 py-2 font-medium">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y" style={{ borderColor: "var(--border)" }}>
@@ -154,7 +155,10 @@ export default async function AdminPage() {
                       {u.role}
                     </span>
                   </td>
-                  <td className="px-4 py-2" style={{ color: "var(--muted)" }}>{new Date(u.createdAt).toLocaleDateString()}</td>
+                                   <td className="px-4 py-2" style={{ color: "var(--muted)" }}>{new Date(u.createdAt).toLocaleDateString()}</td>
+                  <td className="px-4 py-2">
+                    <RoleToggleButton userId={u.id} currentRole={u.role} />
+                  </td>
                 </tr>
               ))}
             </tbody>

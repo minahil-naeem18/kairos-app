@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import Navbar from "./navbar";
@@ -14,17 +14,34 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["600", "700"],
+});
 
 export const metadata: Metadata = {
-  title: "GOR - Global Opportunity Radar",
-  description: "Find scholarships, jobs, internships and more, matched to you.",
+  title: "Kairos — Discover Scholarships, Jobs & Internships",
+  description: "Discover. Apply. Grow. Scholarships, jobs, and internships from around the world — matched to you.",
+  openGraph: {
+    title: "Kairos — Discover Scholarships, Jobs & Internships",
+    description: "Discover. Apply. Grow. Scholarships, jobs, and internships from around the world — matched to you.",
+    images: ["/og-image.png"],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kairos — Discover Scholarships, Jobs & Internships",
+    description: "Discover. Apply. Grow. Scholarships, jobs, and internships from around the world — matched to you.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+            className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider>

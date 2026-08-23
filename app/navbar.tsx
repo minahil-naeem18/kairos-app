@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useSession, signOut } from "next-auth/react";
 import { useTheme } from "./theme-provider";
 
@@ -10,19 +11,12 @@ export default function Navbar() {
 
   return (
     <div className="sticky top-3 z-50 px-4">
-      <header
-        className="gor-glass mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-5 py-3 shadow-sm"
-      >
+      <header className="gor-glass mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-5 py-2.5 shadow-sm">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
-            <span
-              className="flex h-8 w-8 items-center justify-center rounded-xl text-sm font-bold text-white"
-              style={{ background: "linear-gradient(135deg, var(--primary), var(--teal))" }}
-            >
-              G
-            </span>
+                                    <Image src="/logo.png" alt="Kairos" width={32} height={32} className="h-8 w-8 rounded-md object-contain" />
             <span className="text-lg font-bold tracking-tight" style={{ color: "var(--foreground)" }}>
-              GOR
+              Kairos
             </span>
           </Link>
           <Link href="/map" className="hidden text-sm font-medium sm:block" style={{ color: "var(--muted)" }}>
