@@ -14,7 +14,7 @@ export default function Navbar() {
       <header className="gor-glass mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-5 py-2.5 shadow-sm">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
-                                    <Image src="/logo.png" alt="Kairos" width={32} height={32} className="h-8 w-8 rounded-md object-contain" />
+                                                <Image src="/logo/kairos-icon.png" alt="Kairos" width={32} height={32} className="h-8 w-8 rounded-md object-contain" />
             <span className="text-lg font-bold tracking-tight" style={{ color: "var(--foreground)" }}>
               Kairos
             </span>

@@ -21,32 +21,28 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-     metadataBase: new URL("https://the-kairos.vercel.app"),
   title: "Kairos — Discover Scholarships, Jobs & Internships",
   description: "Discover. Apply. Grow. Scholarships, jobs, and internships from around the world — matched to you.",
+  icons: {
+    icon: [
+      { url: "/logo/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/logo/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/logo/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/logo/apple-touch-icon.png",
+  },
   openGraph: {
     title: "Kairos — Discover Scholarships, Jobs & Internships",
     description: "Discover. Apply. Grow. Scholarships, jobs, and internships from around the world — matched to you.",
-   images: [
-  {
-    url: "/logo/og-image.png",
-    width: 1200,
-    height: 630,
-  },
-],
+    images: ["/logo/og-image.png"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Kairos — Discover Scholarships, Jobs & Internships",
     description: "Discover. Apply. Grow. Scholarships, jobs, and internships from around the world — matched to you.",
-    images: [
-  {
-    url: "/logo/og-image.png",
-    width: 1200,
-    height: 630,
-  },
-],
+    images: ["/logo/og-image.png"],
   },
 };
 
