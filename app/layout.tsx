@@ -33,10 +33,16 @@ export const metadata: Metadata = {
     ],
     apple: "/logo/apple-touch-icon.png",
   },
-  openGraph: {
+    openGraph: {
     title: "Kairos — Discover Scholarships, Jobs & Internships",
     description: "Discover. Apply. Grow. Scholarships, jobs, and internships from around the world — matched to you.",
-    images: ["/logo/og-image.png"],
+    images: [
+      {
+        url: "/logo/og-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
     type: "website",
   },
   twitter: {
