@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     ],
     apple: "/logo/apple-touch-icon.png",
   },
-    openGraph: {
+  openGraph: {
     title: "Kairos — Discover Scholarships, Jobs & Internships",
     description: "Discover. Apply. Grow. Scholarships, jobs, and internships from around the world — matched to you.",
     images: [
@@ -50,19 +50,20 @@ export const metadata: Metadata = {
     title: "Kairos — Discover Scholarships, Jobs & Internships",
     description: "Discover. Apply. Grow. Scholarships, jobs, and internships from around the world — matched to you.",
     images: [
-    {
-      url: "/logo/og-image.png",
-      width: 1200,
-      height: 800,},
+      {
+        url: "/logo/og-image.png",
+        width: 1200,
+        height: 800,
+      },
     ],
-    },
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-            className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
@@ -71,6 +72,28 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <main className="flex-1">{children}</main>
           </Providers>
         </ThemeProvider>
+
+        {/* Credit badge */}
+        <div
+          style={{
+            position: "fixed",
+            bottom: "14px",
+            left: "14px",
+            zIndex: 50,
+            fontSize: "11px",
+            fontWeight: 500,
+            padding: "6px 12px",
+            borderRadius: "999px",
+            background: "var(--surface)",
+            color: "var(--muted)",
+            border: "1px solid var(--border)",
+            boxShadow: "var(--shadow-sm)",
+            pointerEvents: "none",
+            opacity: 0.85,
+          }}
+        >
+          Made by Minahil Naeem
+        </div>
       </body>
     </html>
   );
