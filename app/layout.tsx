@@ -49,8 +49,13 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Kairos — Discover Scholarships, Jobs & Internships",
     description: "Discover. Apply. Grow. Scholarships, jobs, and internships from around the world — matched to you.",
-    images: ["/logo/og-image.png"],
-  },
+    images: [
+    {
+      url: "/logo/og-image.png",
+      width: 1200,
+      height: 630,},
+    ],
+    },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
