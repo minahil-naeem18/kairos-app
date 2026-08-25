@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "./providers";
 import Navbar from "./navbar";
 import { ThemeProvider } from "./theme-provider";
+import PageTransition from "./page-transition";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -69,7 +70,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                <ThemeProvider>
           <Providers>
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1">
+  <PageTransition>{children}</PageTransition>
+</main>
             <footer
               className="border-t px-6 py-4 text-right text-xs"
               style={{ borderColor: "var(--border)", color: "var(--muted)" }}
