@@ -246,33 +246,38 @@ export default async function Home({
         </div>
       </section>
 
-      {!userId ? (
-        <div className="mx-auto max-w-2xl px-6 py-16 text-center">
-          <h2 className="text-2xl font-bold" style={{ color: "var(--foreground)" }}>
-            Sign up to explore {totalOpportunities.toLocaleString()}+ opportunities
-          </h2>
-          <p className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
-            Create a free account to see personalized recommendations, closing deadlines, trending opportunities, and browse the full catalog.
-          </p>
-          <div className="mt-6 flex justify-center gap-3">
-            <Link
-              href="/signup"
-              className="rounded-full px-6 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
-              style={{ background: "var(--primary)" }}
-            >
-              Sign Up Free
-            </Link>
-            <Link
-              href="/login"
-              className="rounded-full border px-6 py-2.5 text-sm font-semibold transition"
-              style={{ borderColor: "var(--border)", color: "var(--foreground)" }}
-            >
-              Log In
-            </Link>
+            <div className="mx-auto max-w-6xl px-6 py-12">
+        {!userId && (
+          <div
+            className="mb-10 flex flex-col items-center justify-between gap-4 rounded-2xl border p-5 text-center sm:flex-row sm:text-left"
+            style={{ borderColor: "var(--primary)", background: "var(--surface-alt)" }}
+          >
+            <div>
+              <p className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>
+                Browsing as a guest — sign up to unlock:
+              </p>
+              <p className="mt-1 text-xs" style={{ color: "var(--muted)" }}>
+                💾 Save opportunities · ✨ Personalized match recommendations · 📊 Application tracker · ⏰ Deadline reminders
+              </p>
+            </div>
+            <div className="flex flex-shrink-0 gap-2">
+              <Link
+                href="/signup"
+                className="rounded-full px-5 py-2 text-sm font-semibold text-white transition hover:opacity-90"
+                style={{ background: "var(--primary)" }}
+              >
+                Sign Up Free
+              </Link>
+              <Link
+                href="/login"
+                className="rounded-full border px-5 py-2 text-sm font-semibold transition"
+                style={{ borderColor: "var(--border)", color: "var(--foreground)" }}
+              >
+                Log In
+              </Link>
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className="mx-auto max-w-6xl px-6 py-12">
+        )}
           {/* CATEGORY TABS */}
           <div className="mb-12 flex justify-center">
             <div
@@ -466,9 +471,9 @@ export default async function Home({
                 {opportunities.map((opp) => {
                   const style = catStyle(opp.category.name);
                   return (
-                    <div
+                                       <div
                       key={opp.id}
-                      className="flex flex-col rounded-xl border-l-4 border-y border-r p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                      className="flex flex-col rounded-xl border-l-4 border-y border-r p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
                       style={{ borderColor: "var(--border)", borderLeftColor: style.color, background: "var(--surface)" }}
                     >
                       <div className="mb-2 flex items-center justify-between">
@@ -511,8 +516,7 @@ export default async function Home({
               )}
             </>
           )}
-        </div>
-      )}
+              </div>
     </div>
   );
 }

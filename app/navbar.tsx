@@ -19,16 +19,27 @@ export default function Navbar() {
               Kairos
             </span>
           </Link>
-          <Link href="/map" className="hidden text-sm font-medium sm:block" style={{ color: "var(--muted)" }}>
+                   <Link href="/map" className="group relative hidden text-sm font-medium sm:block" style={{ color: "var(--muted)" }}>
             Explore Map
+            <span
+              className="absolute -bottom-1 left-0 h-0.5 w-0 transition-all duration-200 group-hover:w-full"
+              style={{ background: "var(--primary)" }}
+            />
+          </Link>
+                              <Link href="/about" className="group relative hidden text-sm font-medium sm:block" style={{ color: "var(--muted)" }}>
+            About
+            <span
+              className="absolute -bottom-1 left-0 h-0.5 w-0 transition-all duration-200 group-hover:w-full"
+              style={{ background: "var(--primary)" }}
+            />
           </Link>
         </div>
 
         <nav className="flex items-center gap-3 text-sm">
-          <button
+                   <button
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            className="flex h-8 w-8 items-center justify-center rounded-full border transition"
+            className="flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-300 hover:scale-110 hover:rotate-12 active:scale-95"
             style={{ borderColor: "var(--border)", color: "var(--foreground)" }}
           >
             {theme === "light" ? "🌙" : "☀️"}
@@ -49,7 +60,7 @@ export default function Navbar() {
               </Link>
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
-                className="rounded-full px-4 py-1.5 text-sm font-semibold text-white transition hover:opacity-90"
+                                className="rounded-full px-4 py-1.5 text-sm font-semibold text-white transition-all duration-150 hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
                 style={{ background: "var(--primary)" }}
               >
                 Log Out
@@ -62,7 +73,7 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/signup"
-                className="rounded-full px-4 py-1.5 text-sm font-semibold text-white transition hover:opacity-90"
+                               className="rounded-full px-4 py-1.5 text-sm font-semibold text-white transition-all duration-150 hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
                 style={{ background: "var(--primary)" }}
               >
                 Sign Up

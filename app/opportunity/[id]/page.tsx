@@ -70,10 +70,13 @@ export default async function OpportunityDetailPage({
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-10">
-      <Link href="/" className="text-sm" style={{ color: "var(--muted)" }}>
+           <Link
+        href="/"
+        className="inline-flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-sm font-medium transition hover:shadow-sm"
+        style={{ borderColor: "var(--border)", color: "var(--foreground)", background: "var(--surface)" }}
+      >
         ← Back to all opportunities
       </Link>
-
       {/* HEADER */}
       <div className="mt-4 flex items-start justify-between gap-4">
         <div className="min-w-0">
@@ -239,8 +242,10 @@ export default async function OpportunityDetailPage({
           <p className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>Ready to apply?</p>
           <p className="text-xs" style={{ color: "var(--muted)" }}>You'll be redirected to the official application page.</p>
         </div>
-        <div className="flex items-center gap-2">
-          <SaveButton opportunityId={opp.id} initialSaved={isSaved} isLoggedIn={!!userId} />
+               <div className="flex items-stretch gap-2">
+          <div className="flex items-center">
+            <SaveButton opportunityId={opp.id} initialSaved={isSaved} isLoggedIn={!!userId} />
+          </div>
           <ApplyButton opportunityId={opp.id} applicationUrl={opp.applicationUrl} isLoggedIn={!!userId} />
         </div>
       </div>

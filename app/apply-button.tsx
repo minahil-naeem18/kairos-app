@@ -36,10 +36,11 @@ export default function ApplyButton({
   }
 
   return (
-    <div className="mt-4">
+        <div>
       <button
         onClick={handleClick}
-        className="block w-full rounded-md bg-gray-900 px-4 py-2 text-center text-sm font-medium text-white hover:bg-gray-800"
+        className="rounded-full px-5 py-2 text-center text-sm font-semibold text-white transition hover:opacity-90"
+        style={{ background: "var(--primary)" }}
       >
         View & Apply
       </button>

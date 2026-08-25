@@ -66,13 +66,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ThemeProvider>
+               <ThemeProvider>
           <Providers>
             <Navbar />
             <main className="flex-1">{children}</main>
+            <footer
+              className="border-t px-6 py-4 text-right text-xs"
+              style={{ borderColor: "var(--border)", color: "var(--muted)" }}
+            >
+              Made by Minahil Naeem
+            </footer>
           </Providers>
         </ThemeProvider>
-
         {/* Credit badge */}
         <div
           style={{
