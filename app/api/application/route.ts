@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
   const session = await auth();
@@ -19,6 +20,14 @@ export async function POST(req: Request) {
   }
 
   const userId = (session.user as any).id;
+
+  const rateCheck = await checkRateLimit(`application:${userId}`, 20, 60 * 1000);
+  if (!rateCheck.allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Please slow down." },
+      { status: 429 }
+    );
+  }
 
   const application = await prisma.application.upsert({
     where: {

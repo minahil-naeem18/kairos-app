@@ -7,6 +7,7 @@ import ReportButton from "./report-button";
 import { calculateMatchScore, getMatchReasons } from "@/lib/matching";
 import MatchRing from "./match-ring";
 import { mapToCountry } from "@/lib/countries";
+import FadeInCard from "./fade-in-card";
 
 const PAGE_SIZE = 40;
 
@@ -371,10 +372,10 @@ export default async function Home({
               <div className="flex gap-3 overflow-x-auto pb-2">
                 {closingSoon.map((opp) => (
                   <div
-                    key={opp.id}
-                    className="min-w-[240px] flex-shrink-0 rounded-xl border p-4"
-                    style={{ borderColor: "var(--amber)", background: "var(--amber-light)" }}
-                  >
+  key={opp.id}
+  className="closing-soon-glow min-w-[240px] flex-shrink-0 rounded-xl border p-4"
+  style={{ borderColor: "var(--amber)", background: "var(--amber-light)" }}
+>
                     <span className="text-xs font-medium" style={{ color: "var(--amber)" }}>{opp.category.name}</span>
                     <h3 className="mt-1 line-clamp-2 text-sm font-semibold" style={{ color: "var(--foreground)" }}>{opp.title}</h3>
                     <p className="mt-2 text-xs font-medium" style={{ color: "var(--amber)" }}>
@@ -468,39 +469,40 @@ export default async function Home({
           ) : (
             <>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {opportunities.map((opp) => {
-                  const style = catStyle(opp.category.name);
-                  return (
-                                       <div
-                      key={opp.id}
-                      className="flex flex-col rounded-xl border-l-4 border-y border-r p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
-                      style={{ borderColor: "var(--border)", borderLeftColor: style.color, background: "var(--surface)" }}
-                    >
-                      <div className="mb-2 flex items-center justify-between">
-                        <span className="inline-block rounded-full px-2.5 py-0.5 text-xs font-medium" style={{ background: style.bg, color: style.color }}>
-                          {opp.category.name}
-                        </span>
-                        <SaveButton opportunityId={opp.id} initialSaved={savedIds.includes(opp.id)} isLoggedIn={!!userId} />
-                      </div>
+{opportunities.map((opp, index) => {
+  const style = catStyle(opp.category.name);
+  return (
+    <FadeInCard key={opp.id} index={index}>
+      <div
+        className="flex flex-col rounded-xl border-l-4 border-y border-r p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+        style={{ borderColor: "var(--border)", borderLeftColor: style.color, background: "var(--surface)" }}
+      >
+        <div className="mb-2 flex items-center justify-between">
+          <span className="inline-block rounded-full px-2.5 py-0.5 text-xs font-medium" style={{ background: style.bg, color: style.color }}>
+            {opp.category.name}
+          </span>
+          <SaveButton opportunityId={opp.id} initialSaved={savedIds.includes(opp.id)} isLoggedIn={!!userId} />
+        </div>
 
-                      <Link href={`/opportunity/${opp.id}`}>
-                        <h2 className="text-lg font-semibold transition hover:opacity-70" style={{ color: "var(--foreground)" }}>{opp.title}</h2>
-                      </Link>
+        <Link href={`/opportunity/${opp.id}`}>
+          <h2 className="text-lg font-semibold transition hover:opacity-70" style={{ color: "var(--foreground)" }}>{opp.title}</h2>
+        </Link>
 
-                      {opp.provider && <p className="text-sm" style={{ color: "var(--muted)" }}>{opp.provider.name}</p>}
-                      <p className="mt-2 line-clamp-3 text-sm" style={{ color: "var(--muted)" }}>{opp.description}</p>
+        {opp.provider && <p className="text-sm" style={{ color: "var(--muted)" }}>{opp.provider.name}</p>}
+        <p className="mt-2 line-clamp-3 text-sm" style={{ color: "var(--muted)" }}>{opp.description}</p>
 
-                      <div className="mt-3 flex flex-wrap gap-2 text-xs" style={{ color: "var(--muted)" }}>
-                        {opp.location && <span>📍 {opp.location}</span>}
-                        {opp.fundingType !== "NOT_SPECIFIED" && <span>💰 {opp.fundingType.replace(/_/g, " ")}</span>}
-                        {opp.deadline && <span>⏰ {new Date(opp.deadline).toLocaleDateString()}</span>}
-                      </div>
+        <div className="mt-3 flex flex-wrap gap-2 text-xs" style={{ color: "var(--muted)" }}>
+          {opp.location && <span>📍 {opp.location}</span>}
+          {opp.fundingType !== "NOT_SPECIFIED" && <span>💰 {opp.fundingType.replace(/_/g, " ")}</span>}
+          {opp.deadline && <span>⏰ {new Date(opp.deadline).toLocaleDateString()}</span>}
+        </div>
 
-                      <ApplyButton opportunityId={opp.id} applicationUrl={opp.applicationUrl} isLoggedIn={!!userId} />
-                      <ReportButton opportunityId={opp.id} />
-                    </div>
-                  );
-                })}
+        <ApplyButton opportunityId={opp.id} applicationUrl={opp.applicationUrl} isLoggedIn={!!userId} />
+        <ReportButton opportunityId={opp.id} />
+      </div>
+    </FadeInCard>
+  );
+})}
               </div>
 
               {currentPage < totalPages && (

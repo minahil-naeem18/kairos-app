@@ -1,4 +1,10 @@
-import LoadingSpinner from "./loading-spinner";
+import OpportunitySkeleton from "./opportunity-skeleton";
+
 export default function Loading() {
-  return <LoadingSpinner />;
+  return (
+    <div className="mx-auto max-w-6xl px-6 py-12">
+      <div className="skeleton-shimmer mb-6 h-4 w-40 rounded" />
+      <OpportunitySkeleton />
+    </div>
+  );
 }
