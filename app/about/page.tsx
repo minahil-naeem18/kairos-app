@@ -50,18 +50,18 @@ export default async function AboutPage() {
           </p>
         </div>
         <div className="flex gap-3">
-          <span
-            className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
-            style={{ background: "var(--primary)" }}
-          >
-            2
-          </span>
-          <p className="text-sm" style={{ color: "var(--muted)" }}>
-            <span className="font-semibold" style={{ color: "var(--foreground)" }}>Sign up (optional)</span> — create
-            a free account to unlock saving opportunities, personalized match scores based on your field and
-            preferences, an application tracker, and deadline reminders.
-          </p>
-        </div>
+  <span
+    className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
+    style={{ background: "var(--primary)" }}
+  >
+    2
+  </span>
+  <p className="text-sm" style={{ color: "var(--muted)" }}>
+    <span className="font-semibold" style={{ color: "var(--foreground)" }}>Create a free account</span> — required
+    to actually apply. Signing up also unlocks saving opportunities, personalized match scores based on your
+    field and preferences, an application tracker, and deadline reminders.
+  </p>
+</div>
         <div className="flex gap-3">
           <span
             className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"

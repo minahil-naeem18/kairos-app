@@ -17,13 +17,14 @@ export default function ApplyButton({
   const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [applied, setApplied] = useState(false);
-
-  function handleClick() {
-    window.open(applicationUrl, "_blank", "noopener,noreferrer");
-    if (isLoggedIn) {
-      setShowConfirm(true);
-    }
+function handleClick() {
+  if (!isLoggedIn) {
+    router.push("/login");
+    return;
   }
+  window.open(applicationUrl, "_blank", "noopener,noreferrer");
+  setShowConfirm(true);
+}
 
   async function markApplied() {
     setLoading(true);
@@ -45,12 +46,12 @@ export default function ApplyButton({
   return (
     <div>
       <button
-        onClick={handleClick}
-        className="rounded-full px-5 py-2 text-center text-sm font-semibold text-white transition hover:opacity-90"
-        style={{ background: "var(--primary)" }}
-      >
-        View & Apply
-      </button>
+  onClick={handleClick}
+  className="rounded-full px-5 py-2 text-center text-sm font-semibold text-white transition hover:opacity-90"
+  style={{ background: "var(--primary)" }}
+>
+  {isLoggedIn ? "View & Apply" : "🔒 Log In to Apply"}
+</button>
 
       {showConfirm && (
         <div className="mt-2 rounded-md border border-gray-200 bg-gray-50 p-2 text-xs text-gray-700">

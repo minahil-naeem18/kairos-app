@@ -82,27 +82,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </footer>
           </Providers>
         </ThemeProvider>
-        {/* Credit badge */}
-        <div
-          style={{
-            position: "fixed",
-            bottom: "14px",
-            left: "14px",
-            zIndex: 50,
-            fontSize: "11px",
-            fontWeight: 500,
-            padding: "6px 12px",
-            borderRadius: "999px",
-            background: "var(--surface)",
-            color: "var(--muted)",
-            border: "1px solid var(--border)",
-            boxShadow: "var(--shadow-sm)",
-            pointerEvents: "none",
-            opacity: 0.85,
-          }}
-        >
-          Made by Minahil Naeem
-        </div>
+        
       </body>
     </html>
   );
