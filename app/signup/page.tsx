@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -22,17 +23,32 @@ export default function SignupPage() {
       body: JSON.stringify({ name, email, password }),
     });
 
-    const data = await res.json();
-    setLoading(false);
+        const data = await res.json();
 
     if (!res.ok) {
+      setLoading(false);
       setError(data.error || "Something went wrong.");
       return;
     }
 
-    router.push("/login");
-  }
+    // Automatically log in after successful signup
+    const signInRes = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
 
+    setLoading(false);
+
+    if (signInRes?.error) {
+      // Fallback: account created but auto-login failed, send to login page
+      router.push("/login");
+      return;
+    }
+
+    router.push("/");
+    router.refresh();
+  }
   const inputStyle = {
     background: "var(--surface-alt)",
     borderColor: "var(--border)",

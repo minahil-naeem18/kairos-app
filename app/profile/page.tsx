@@ -23,7 +23,7 @@ export default async function ProfilePage() {
         This information helps us match you with relevant opportunities.
       </p>
 
-      <ProfileForm profile={profile} />
+           <ProfileForm profile={profile} defaultName={session.user.name} />
     </div>
   );
 }

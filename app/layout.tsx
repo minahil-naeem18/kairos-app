@@ -25,6 +25,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://the-kairos.vercel.app"),
   title: "Kairos — Discover Scholarships, Jobs & Internships",
   description: "Discover. Apply. Grow. Scholarships, jobs, and internships from around the world — matched to you.",
+    manifest: "/manifest.json",
   icons: {
     icon: [
       { url: "/logo/favicon-16x16.png", sizes: "16x16", type: "image/png" },

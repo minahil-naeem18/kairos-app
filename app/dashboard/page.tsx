@@ -95,8 +95,12 @@ export default async function DashboardPage() {
                 style={{ width: `${profileCompletion}%`, background: "linear-gradient(90deg, var(--primary), var(--teal))" }}
               />
             </div>
-            {profileCompletion < 100 && (
-              <Link href="/profile" className="mt-3 inline-block text-xs underline" style={{ color: "var(--primary)" }}>
+                        {profileCompletion < 100 && (
+              <Link
+                href="/profile"
+                className="mt-3 inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold text-white transition-all duration-150 hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0"
+                style={{ background: "var(--primary)" }}
+              >
                 Complete your profile for better matches →
               </Link>
             )}

@@ -89,14 +89,20 @@ export default function LoginPage() {
           />
         </div>
 
-        <button
-  type="submit"
-  disabled={loading}
-  className="w-full rounded-lg py-2 text-sm font-medium text-white transition-all duration-150 hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 disabled:opacity-50"
-  style={{ background: "var(--primary)" }}
->
-  {loading ? "Logging in..." : "Log In"}
-</button>
+                <button
+          type="submit"
+          disabled={loading}
+          className="w-full rounded-full py-2.5 text-sm font-semibold text-white transition-all duration-150 hover:opacity-90 hover:-translate-y-0.5 disabled:opacity-50"
+          style={{ background: "var(--primary)" }}
+        >
+          {loading ? "Logging in..." : "Log In"}
+        </button>
+
+        <p className="text-center text-sm">
+          <a href="/forgot-password" className="font-medium underline" style={{ color: "var(--primary)" }}>
+            Forgot your password?
+          </a>
+        </p>
 
         <p className="text-center text-sm" style={{ color: "var(--muted)" }}>
           Don't have an account?{" "}

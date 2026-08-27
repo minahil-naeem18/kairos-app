@@ -2,6 +2,19 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+const COUNTRIES = [
+  "Afghanistan", "Albania", "Algeria", "Argentina", "Australia", "Austria",
+  "Bangladesh", "Belgium", "Brazil", "Canada", "Chile", "China", "Colombia",
+  "Denmark", "Egypt", "Ethiopia", "Finland", "France", "Germany", "Ghana",
+  "Greece", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Italy", "Japan",
+  "Jordan", "Kazakhstan", "Kenya", "South Korea", "Kuwait", "Lebanon",
+  "Malaysia", "Mexico", "Morocco", "Nepal", "Netherlands", "New Zealand",
+  "Nigeria", "Norway", "Oman", "Pakistan", "Peru", "Philippines", "Poland",
+  "Portugal", "Qatar", "Romania", "Russia", "Saudi Arabia", "Singapore",
+  "South Africa", "Spain", "Sri Lanka", "Sweden", "Switzerland", "Taiwan",
+  "Tanzania", "Thailand", "Turkey", "Uganda", "Ukraine", "United Arab Emirates",
+  "United Kingdom", "United States", "Uzbekistan", "Vietnam", "Yemen",
+];
 
 const inputStyle = {
   background: "var(--surface-alt)",
@@ -9,14 +22,14 @@ const inputStyle = {
   color: "var(--foreground)",
 };
 
-export default function ProfileForm({ profile }: { profile: any }) {
+export default function ProfileForm({ profile, defaultName }: { profile: any; defaultName?: string | null }) {
   const router = useRouter();
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
-    displayName: profile?.displayName || "",
+       displayName: profile?.displayName || defaultName || "",
     country: profile?.country || "",
     degreeLevel: profile?.degreeLevel || "",
     degreeProgram: profile?.degreeProgram || "",
@@ -86,15 +99,19 @@ export default function ProfileForm({ profile }: { profile: any }) {
         />
       </div>
 
-      <div>
+            <div>
         <label className={labelClass} style={labelStyle}>Country</label>
-        <input
-          type="text"
+        <select
           value={form.country}
           onChange={(e) => updateField("country", e.target.value)}
           className={inputClass}
           style={inputStyle}
-        />
+        >
+          <option value="">Select your country...</option>
+          {COUNTRIES.map((c) => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
       </div>
 
       <div>

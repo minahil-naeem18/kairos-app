@@ -1,0 +1,13 @@
+# Kairos
+
+> Kairos is a global opportunity discovery platform for students and young professionals, aggregating scholarships, internships, and jobs from around the world into a single searchable catalog.
+
+Kairos helps users find and track scholarships, internships, and job opportunities across 20+ countries, with personalized match scoring based on field of study, degree level, and funding preferences.
+
+## Main Pages
+- [Homepage](https://the-kairos.vercel.app/): Browse and search all opportunities
+- [Opportunity Map](https://the-kairos.vercel.app/map): Explore opportunities by country
+- [About](https://the-kairos.vercel.app/about): Learn about Kairos and how it works
+
+## Sitemap
+https://the-kairos.vercel.app/sitemap.xml
